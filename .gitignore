@@ -1,0 +1,43 @@
+.anchor
+.DS_Store
+target
+**/*.rs.bk
+node_modules
+test-ledger
+.yarn
+
+# Rust
+debug/
+target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+
+# Solana
+.so
+*.so
+deploy/
+dist/
+.build/
+test-ledger/
+.solana/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local
+
