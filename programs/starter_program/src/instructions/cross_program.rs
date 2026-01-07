@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use counter_program::{
+    cpi::accounts::{Add, Increment, IncrementWithPayment, Initialize},
     program::CounterProgram,
-    cpi::accounts::{Initialize, Increment, Add, IncrementWithPayment},
     Counter,
 };
 
@@ -132,12 +132,9 @@ pub struct IncrementWithPaymentFromPda<'info> {
 
 pub fn increment_with_payment_from_pda_handler(
     ctx: Context<IncrementWithPaymentFromPda>,
-    payment: u64
+    payment: u64,
 ) -> Result<()> {
-    let seeds = &[
-        SEED_TOKEN_VAULT,
-        &[ctx.bumps.pda_vault],
-    ];
+    let seeds = &[SEED_TOKEN_VAULT, &[ctx.bumps.pda_vault]];
     let signer = &[&seeds[..]];
 
     let cpi_accounts = IncrementWithPayment {
@@ -152,6 +149,9 @@ pub fn increment_with_payment_from_pda_handler(
 
     counter_program::cpi::increment_with_payment(cpi_ctx, payment)?;
 
-    msg!("Counter incremented with payment of {} lamports from PDA", payment);
+    msg!(
+        "Counter incremented with payment of {} lamports from PDA",
+        payment
+    );
     Ok(())
 }

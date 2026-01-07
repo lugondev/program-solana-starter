@@ -1,9 +1,7 @@
+use crate::constants::SEED_TOKEN_VAULT;
 use anchor_lang::prelude::*;
 use anchor_lang::system_program::{transfer, Transfer as SystemTransfer};
-use anchor_spl::token_interface::{
-    self, TokenAccount, TokenInterface, TransferChecked,
-};
-use crate::constants::SEED_TOKEN_VAULT;
+use anchor_spl::token_interface::{self, TokenAccount, TokenInterface, TransferChecked};
 
 #[derive(Accounts)]
 pub struct TransferSol<'info> {
@@ -48,14 +46,8 @@ pub struct TransferSolWithPda<'info> {
     pub system_program: Program<'info, System>,
 }
 
-pub fn transfer_sol_with_pda_handler(
-    ctx: Context<TransferSolWithPda>,
-    amount: u64,
-) -> Result<()> {
-    let seeds = &[
-        SEED_TOKEN_VAULT,
-        &[ctx.bumps.vault],
-    ];
+pub fn transfer_sol_with_pda_handler(ctx: Context<TransferSolWithPda>, amount: u64) -> Result<()> {
+    let seeds = &[SEED_TOKEN_VAULT, &[ctx.bumps.vault]];
     let signer = &[&seeds[..]];
 
     let cpi_accounts = SystemTransfer {
@@ -96,10 +88,7 @@ pub fn transfer_tokens_with_pda_handler(
     ctx: Context<TransferTokensWithPda>,
     amount: u64,
 ) -> Result<()> {
-    let seeds = &[
-        SEED_TOKEN_VAULT,
-        &[ctx.bumps.vault_authority],
-    ];
+    let seeds = &[SEED_TOKEN_VAULT, &[ctx.bumps.vault_authority]];
     let signer = &[&seeds[..]];
 
     let cpi_accounts = TransferChecked {

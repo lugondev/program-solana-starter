@@ -1,5 +1,5 @@
+use crate::{constants::SEED_USER_ACCOUNT, error::ErrorCode, state::UserAccount};
 use anchor_lang::prelude::*;
-use crate::{state::UserAccount, constants::SEED_USER_ACCOUNT, error::ErrorCode};
 
 #[derive(Accounts)]
 pub struct CreateUserAccount<'info> {
@@ -43,10 +43,7 @@ pub struct UpdateUserAccount<'info> {
     pub authority: Signer<'info>,
 }
 
-pub fn update_user_account_handler(
-    ctx: Context<UpdateUserAccount>,
-    new_points: u64,
-) -> Result<()> {
+pub fn update_user_account_handler(ctx: Context<UpdateUserAccount>, new_points: u64) -> Result<()> {
     let user = &mut ctx.accounts.user_account;
     user.points = new_points;
     user.updated_at = Clock::get()?.unix_timestamp;

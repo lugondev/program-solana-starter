@@ -31,4 +31,19 @@ pub enum ErrorCode {
 
     #[msg("Program is paused")]
     ProgramPaused,
+
+    #[msg("Insufficient permissions for this action")]
+    InsufficientPermissions,
+
+    #[msg("Invalid role type")]
+    InvalidRoleType,
+
+    #[msg("Role already exists")]
+    RoleAlreadyExists,
+
+    #[msg("Role not found")]
+    RoleNotFound,
+
+    #[msg("Cannot modify super admin role")]
+    CannotModifySuperAdmin,
 }

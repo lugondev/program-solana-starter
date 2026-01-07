@@ -1,5 +1,5 @@
+use crate::{constants::*, error::ErrorCode, state::ProgramConfig};
 use anchor_lang::prelude::*;
-use crate::{state::ProgramConfig, constants::*, error::ErrorCode};
 
 #[derive(Accounts)]
 pub struct InitializeConfig<'info> {
@@ -18,7 +18,10 @@ pub struct InitializeConfig<'info> {
     pub system_program: Program<'info, System>,
 }
 
-pub fn initialize_config_handler(ctx: Context<InitializeConfig>, fee_destination: Pubkey) -> Result<()> {
+pub fn initialize_config_handler(
+    ctx: Context<InitializeConfig>,
+    fee_destination: Pubkey,
+) -> Result<()> {
     let config = &mut ctx.accounts.program_config;
     config.admin = ctx.accounts.authority.key();
     config.fee_destination = fee_destination;

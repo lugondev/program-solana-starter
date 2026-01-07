@@ -17,23 +17,23 @@ pub mod counter_program {
 
     pub fn increment(ctx: Context<Increment>) -> Result<()> {
         let counter = &mut ctx.accounts.counter;
-        counter.count = counter.count.checked_add(1)
-            .ok_or(ErrorCode::Overflow)?;
+        counter.count = counter.count.checked_add(1).ok_or(ErrorCode::Overflow)?;
         msg!("Counter incremented to: {}", counter.count);
         Ok(())
     }
 
     pub fn decrement(ctx: Context<Decrement>) -> Result<()> {
         let counter = &mut ctx.accounts.counter;
-        counter.count = counter.count.checked_sub(1)
-            .ok_or(ErrorCode::Underflow)?;
+        counter.count = counter.count.checked_sub(1).ok_or(ErrorCode::Underflow)?;
         msg!("Counter decremented to: {}", counter.count);
         Ok(())
     }
 
     pub fn add(ctx: Context<Add>, value: u64) -> Result<()> {
         let counter = &mut ctx.accounts.counter;
-        counter.count = counter.count.checked_add(value)
+        counter.count = counter
+            .count
+            .checked_add(value)
             .ok_or(ErrorCode::Overflow)?;
         msg!("Added {} to counter. New value: {}", value, counter.count);
         Ok(())
@@ -59,10 +59,13 @@ pub mod counter_program {
 
         // Increment counter
         let counter = &mut ctx.accounts.counter;
-        counter.count = counter.count.checked_add(1)
-            .ok_or(ErrorCode::Overflow)?;
-        
-        msg!("Payment of {} lamports received. Counter incremented to: {}", payment, counter.count);
+        counter.count = counter.count.checked_add(1).ok_or(ErrorCode::Overflow)?;
+
+        msg!(
+            "Payment of {} lamports received. Counter incremented to: {}",
+            payment,
+            counter.count
+        );
         Ok(())
     }
 }
