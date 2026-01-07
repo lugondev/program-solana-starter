@@ -22,6 +22,8 @@ dist/
 test-ledger/
 .solana/
 
+keypairs
+
 # IDE
 .idea/
 .vscode/
