@@ -115,6 +115,7 @@ pub fn update_role_permissions_handler(
     remove_permissions: u8,
 ) -> Result<()> {
     let role = &mut ctx.accounts.role;
+    let clock = Clock::get()?;
 
     if add_permissions > 0 {
         role.add_permission(add_permissions);
@@ -124,11 +125,13 @@ pub fn update_role_permissions_handler(
         role.remove_permission(remove_permissions);
     }
 
+    role.updated_at = clock.unix_timestamp;
+
     emit!(RoleUpdatedEvent {
         authority: role.authority,
         permissions: role.permissions,
         updated_by: ctx.accounts.admin.key(),
-        timestamp: Clock::get()?.unix_timestamp,
+        timestamp: clock.unix_timestamp,
     });
 
     Ok(())

@@ -87,20 +87,15 @@ impl Role {
         8 +  // updated_at
         1; // bump
 
-    /// Check if role has specific permission
     pub fn has_permission(&self, permission: u8) -> bool {
         (self.permissions & permission) != 0
     }
 
-    /// Add permission to role
     pub fn add_permission(&mut self, permission: u8) {
         self.permissions |= permission;
-        self.updated_at = Clock::get().unwrap().unix_timestamp;
     }
 
-    /// Remove permission from role
     pub fn remove_permission(&mut self, permission: u8) {
         self.permissions &= !permission;
-        self.updated_at = Clock::get().unwrap().unix_timestamp;
     }
 }

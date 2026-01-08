@@ -216,11 +216,20 @@ pub fn emergency_withdraw_handler(ctx: Context<EmergencyWithdraw>) -> Result<()>
     let treasury = &mut ctx.accounts.treasury;
     let treasury_balance = treasury.to_account_info().lamports();
 
-    require!(treasury_balance > 0, ErrorCode::InsufficientBalance);
+    // Keep rent-exempt minimum to prevent account from being garbage collected
+    let rent = Rent::get()?;
+    let rent_exempt_minimum = rent.minimum_balance(8 + Treasury::LEN);
 
-    let amount = treasury_balance;
+    require!(
+        treasury_balance > rent_exempt_minimum,
+        ErrorCode::InsufficientBalance
+    );
 
-    **treasury.to_account_info().try_borrow_mut_lamports()? = 0;
+    let amount = treasury_balance
+        .checked_sub(rent_exempt_minimum)
+        .ok_or(ErrorCode::ArithmeticOverflow)?;
+
+    **treasury.to_account_info().try_borrow_mut_lamports()? -= amount;
     **ctx.accounts.destination.try_borrow_mut_lamports()? += amount;
 
     treasury.emergency_mode = true;

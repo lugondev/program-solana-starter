@@ -10,7 +10,7 @@ use crate::constants::SEED_TOKEN_VAULT;
 #[derive(Accounts)]
 pub struct InitializeCounter<'info> {
     #[account(mut)]
-    pub counter: Signer<'info>,
+    pub counter: SystemAccount<'info>,
 
     #[account(mut)]
     pub authority: Signer<'info>,

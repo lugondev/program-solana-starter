@@ -346,8 +346,7 @@ pub struct BuyNft<'info> {
         mut,
         constraint = seller.key() == listing.seller @ ErrorCode::Unauthorized
     )]
-    /// CHECK: Seller receives payment
-    pub seller: AccountInfo<'info>,
+    pub seller: Signer<'info>,
 
     pub token_program: Program<'info, Token>,
     pub associated_token_program: Program<'info, AssociatedToken>,
@@ -394,11 +393,15 @@ pub fn buy_nft_handler(ctx: Context<BuyNft>) -> Result<()> {
     let nft_metadata = &mut ctx.accounts.nft_metadata;
     nft_metadata.owner = ctx.accounts.buyer.key();
 
+    let seller_key = ctx.accounts.seller.key();
+    let buyer_key = ctx.accounts.buyer.key();
+    let price = listing.price;
+
     emit!(NftSoldEvent {
         nft_mint: ctx.accounts.nft_mint.key(),
-        seller: ctx.accounts.seller.key(),
-        buyer: ctx.accounts.buyer.key(),
-        price: listing.price,
+        seller: seller_key,
+        buyer: buyer_key,
+        price,
         timestamp: clock.unix_timestamp,
     });
 
