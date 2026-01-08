@@ -96,3 +96,106 @@ pub struct ProgramPausedEvent {
     pub paused: bool,
     pub timestamp: i64,
 }
+
+// NFT Events
+#[event]
+pub struct NftCollectionCreatedEvent {
+    pub collection: Pubkey,
+    pub authority: Pubkey,
+    pub name: String,
+    pub symbol: String,
+    pub timestamp: i64,
+}
+
+#[event]
+pub struct NftMintedEvent {
+    pub nft_mint: Pubkey,
+    pub collection: Pubkey,
+    pub owner: Pubkey,
+    pub name: String,
+    pub uri: String,
+    pub timestamp: i64,
+}
+
+#[event]
+pub struct NftListedEvent {
+    pub nft_mint: Pubkey,
+    pub seller: Pubkey,
+    pub price: u64,
+    pub timestamp: i64,
+}
+
+#[event]
+pub struct NftSoldEvent {
+    pub nft_mint: Pubkey,
+    pub seller: Pubkey,
+    pub buyer: Pubkey,
+    pub price: u64,
+    pub timestamp: i64,
+}
+
+#[event]
+pub struct NftListingCancelledEvent {
+    pub nft_mint: Pubkey,
+    pub seller: Pubkey,
+    pub timestamp: i64,
+}
+
+#[event]
+pub struct NftOfferCreatedEvent {
+    pub nft_mint: Pubkey,
+    pub buyer: Pubkey,
+    pub offer_amount: u64,
+    pub timestamp: i64,
+}
+
+#[event]
+pub struct NftOfferAcceptedEvent {
+    pub nft_mint: Pubkey,
+    pub seller: Pubkey,
+    pub buyer: Pubkey,
+    pub amount: u64,
+    pub timestamp: i64,
+}
+
+// Upgrade Events
+#[event]
+pub struct UpgradeAuthorityInitializedEvent {
+    pub authority: Pubkey,
+    pub admin: Pubkey,
+    pub voting_threshold: u8,
+    pub timestamp: i64,
+}
+
+#[event]
+pub struct UpgradeProposalCreatedEvent {
+    pub proposal_id: u64,
+    pub proposer: Pubkey,
+    pub new_program_data: Pubkey,
+    pub description: String,
+    pub timestamp: i64,
+}
+
+#[event]
+pub struct VoteCastEvent {
+    pub proposal_id: u64,
+    pub voter: Pubkey,
+    pub in_favor: bool,
+    pub timestamp: i64,
+}
+
+#[event]
+pub struct ProposalExecutedEvent {
+    pub proposal_id: u64,
+    pub executor: Pubkey,
+    pub new_program_data: Pubkey,
+    pub timestamp: i64,
+}
+
+#[event]
+pub struct UpgradeCompletedEvent {
+    pub old_version: String,
+    pub new_version: String,
+    pub program_data: Pubkey,
+    pub timestamp: i64,
+}

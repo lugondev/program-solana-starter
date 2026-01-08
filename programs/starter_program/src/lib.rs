@@ -170,4 +170,123 @@ pub mod starter_program {
     pub fn toggle_circuit_breaker(ctx: Context<ToggleCircuitBreaker>) -> Result<()> {
         toggle_circuit_breaker_handler(ctx)
     }
+
+    pub fn create_collection(
+        ctx: Context<CreateCollection>,
+        name: String,
+        symbol: String,
+        uri: String,
+        seller_fee_basis_points: u16,
+        total_supply: u64,
+        is_mutable: bool,
+    ) -> Result<()> {
+        create_collection_handler(
+            ctx,
+            name,
+            symbol,
+            uri,
+            seller_fee_basis_points,
+            total_supply,
+            is_mutable,
+        )
+    }
+
+    pub fn mint_nft(
+        ctx: Context<MintNft>,
+        name: String,
+        uri: String,
+        creators: Vec<crate::state::nft::Creator>,
+    ) -> Result<()> {
+        mint_nft_handler(ctx, name, uri, creators)
+    }
+
+    pub fn update_nft_metadata(
+        ctx: Context<UpdateMetadata>,
+        name: Option<String>,
+        uri: Option<String>,
+    ) -> Result<()> {
+        update_metadata_handler(ctx, name, uri)
+    }
+
+    pub fn list_nft(
+        ctx: Context<ListNft>,
+        price: u64,
+        currency_mint: Option<Pubkey>,
+        expires_at: Option<i64>,
+    ) -> Result<()> {
+        list_nft_handler(ctx, price, currency_mint, expires_at)
+    }
+
+    pub fn buy_nft(ctx: Context<BuyNft>) -> Result<()> {
+        buy_nft_handler(ctx)
+    }
+
+    pub fn cancel_nft_listing(ctx: Context<CancelListing>) -> Result<()> {
+        cancel_listing_handler(ctx)
+    }
+
+    pub fn create_nft_offer(
+        ctx: Context<CreateOffer>,
+        offer_amount: u64,
+        currency_mint: Option<Pubkey>,
+        expires_at: i64,
+    ) -> Result<()> {
+        create_offer_handler(ctx, offer_amount, currency_mint, expires_at)
+    }
+
+    pub fn accept_nft_offer(ctx: Context<AcceptOffer>) -> Result<()> {
+        accept_offer_handler(ctx)
+    }
+
+    pub fn initialize_upgrade_authority(
+        ctx: Context<InitializeUpgradeAuthority>,
+        voting_threshold: u8,
+        voting_period_seconds: i64,
+        execution_delay_seconds: i64,
+    ) -> Result<()> {
+        initialize_upgrade_authority_handler(
+            ctx,
+            voting_threshold,
+            voting_period_seconds,
+            execution_delay_seconds,
+        )
+    }
+
+    pub fn transfer_upgrade_authority(ctx: Context<TransferUpgradeAuthority>) -> Result<()> {
+        transfer_upgrade_authority_handler(ctx)
+    }
+
+    pub fn accept_upgrade_authority(ctx: Context<AcceptUpgradeAuthority>) -> Result<()> {
+        accept_upgrade_authority_handler(ctx)
+    }
+
+    pub fn create_upgrade_proposal(
+        ctx: Context<CreateUpgradeProposal>,
+        proposal_id: u64,
+        description: String,
+    ) -> Result<()> {
+        create_upgrade_proposal_handler(ctx, proposal_id, description)
+    }
+
+    pub fn cast_vote(
+        ctx: Context<CastVote>,
+        proposal_id: u64,
+        in_favor: bool,
+        voting_power: u64,
+    ) -> Result<()> {
+        cast_vote_handler(ctx, proposal_id, in_favor, voting_power)
+    }
+
+    pub fn execute_proposal(
+        ctx: Context<ExecuteProposal>,
+        proposal_id: u64,
+        old_version: String,
+        new_version: String,
+    ) -> Result<()> {
+        execute_proposal_handler(ctx, proposal_id, old_version, new_version)
+    }
+
+    pub fn cancel_proposal(ctx: Context<CancelProposal>, proposal_id: u64) -> Result<()> {
+        cancel_proposal_handler(ctx, proposal_id)
+    }
 }

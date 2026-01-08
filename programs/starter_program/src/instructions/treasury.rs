@@ -1,5 +1,4 @@
 use crate::error::ErrorCode;
-use crate::events::*;
 use crate::{ProgramConfig, Treasury, SEED_PROGRAM_CONFIG, SEED_TREASURY};
 use anchor_lang::prelude::*;
 use anchor_lang::system_program::{transfer, Transfer};

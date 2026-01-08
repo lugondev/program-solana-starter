@@ -1,8 +1,14 @@
-use anchor_lang::prelude::*;
-
 pub const SEED_PROGRAM_CONFIG: &[u8] = b"program_config";
 pub const SEED_USER_ACCOUNT: &[u8] = b"user_account";
 pub const SEED_TOKEN_VAULT: &[u8] = b"token_vault";
 pub const SEED_MINT_AUTHORITY: &[u8] = b"mint_authority";
 pub const SEED_ROLE: &[u8] = b"role";
 pub const SEED_TREASURY: &[u8] = b"treasury";
+pub const SEED_NFT_COLLECTION: &[u8] = b"nft_collection";
+pub const SEED_NFT_METADATA: &[u8] = b"nft_metadata";
+pub const SEED_NFT_LISTING: &[u8] = b"nft_listing";
+pub const SEED_NFT_OFFER: &[u8] = b"nft_offer";
+pub const SEED_UPGRADE_AUTHORITY: &[u8] = b"upgrade_authority";
+pub const SEED_UPGRADE_PROPOSAL: &[u8] = b"upgrade_proposal";
+pub const SEED_VOTE: &[u8] = b"vote";
+pub const SEED_PROGRAM_VERSION: &[u8] = b"program_version";

@@ -22,6 +22,11 @@ A production-ready Anchor framework starter template with advanced features incl
 - ✅ **Comprehensive Events System** - 13 event types for monitoring all program activities
 - ✅ **Emergency Controls** - Circuit breaker for pausing deposits and emergency withdrawal functionality
 
+### Phase 2 Advanced Features
+
+- ✅ **NFT Support** - Collection-based NFT minting with metadata, marketplace listing, and offer system
+- ✅ **Program Upgradability** - Proposal-based upgrade system with voting and time-delayed execution
+
 ## 📁 Project Structure
 
 ```
